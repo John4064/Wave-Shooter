@@ -1,2 +1,6 @@
 .idea
 node_modules
+src/.cache
+src/assets/sound/.DS_Store
+src/.DS_Store
+src/assets/.DS_Store

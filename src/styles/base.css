@@ -4,9 +4,12 @@ html{
 .game-header{
     display: flex;
     justify-content: center;
+    align-items: center;
     color: #22045f;
     font-family: "Hiragino Kaku Gothic Std";
 }
-#game{
-    border: 5px groove purple;
+.game{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
