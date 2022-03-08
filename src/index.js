@@ -1,10 +1,9 @@
 import 'phaser';
 
 
-//Globals
-var music;
 
-class player {
+
+class player extends Phaser.Class {
     /**
      * @param color This determines what color your "avatar" will be (either hex or rgb)
      * @brief Constructor for the player class
@@ -23,11 +22,22 @@ class player {
     }
 }
 
-var config = {
+
+
+
+
+let config = {
     type: Phaser.AUTO,
-    parent: 'phaser-example',
+    parent: 'game',
     width: 800,
     height: 600,
+    //Lower the gravity slower the speed(1 doesnt move)
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 100 }
+        }
+    },
     backgroundColor: '#4a9bd0',
     scene: {
         preload: preload,
@@ -45,47 +55,32 @@ function preload() {
 }
 var game = new Phaser.Game(config);
 
+/**
+ * @param game Is just the phaser game object
+ * @brief just setting up and playing background music
+ */
+function setupMusic(game){
+    game.music = game.sound.add('sky');
+
+    //Music Config
+    let musicConfig = {
+        mute: false,
+        volume:.5,
+        rate:1,
+        loop: true,
+        delay:0
+    }
+    game.music.play(musicConfig);
+}
+
 
 function create() {
-    var logo = this.add.image(400, 250, 'logo');
-    var group = this.add.group();
-    //Error occurs on line 53
-    music = this.add.audio('sky');
+    //Example adding physics
+    var logo = this.physics.add.image(400, 100, 'logo');
 
-    music.play();
+    //Load background Music
+    setupMusic(this);
 
-
-    group.createMultiple({key: 'raster', repeat: 64});
-
-    var hsv = Phaser.Display.Color.HSVColorWheel();
-
-    var i = 0;
-
-    var _this = this;
-
-    group.children.iterate(function (child) {
-
-        child.x = 400;
-        child.y = 100;
-        child.depth = 64 - i;
-
-        child.setTint(hsv[i * 4].color);
-
-        i++;
-
-        _this.tweens.add({
-            targets: child,
-            props: {
-                y: {value: 500, duration: 1500},
-                scaleX: {value: child.depth / 64, duration: 6000, hold: 2000, delay: 2000}
-            },
-            yoyo: true,
-            repeat: -1,
-            ease: 'Sine.easeInOut',
-            delay: 32 * i
-        });
-
-    });
 }
 
 function update() {
