@@ -2,9 +2,7 @@ import 'phaser';
 
 
 //Globals
-var game = new Phaser.Game(config);
 var music;
-var hp = 100;
 
 class player{
     /**
@@ -23,9 +21,8 @@ class player{
     getHP(){
         return this.hp;
     }
+};
 
-
-}
 var config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
@@ -39,31 +36,62 @@ var config = {
     }
 };
 
-var game = new Phaser.Game(config);
-
 
 function preload () {
     this.load.image('logo', '../src/assets/img/logo.png');
-    //this.load.audio('sky', ['../src/assets/sound/sky.wav']);
+    game.load.audio('sky', '../src/assets/sound/sky.wav');
 
-}
+};
+var game = new Phaser.Game(config);
+
 
 function create () {
     var logo = this.add.image(400, 150, 'logo');
-    this.stage.backgroundColor = "#4488AA";
+    var group = this.add.group();
+    game.stage.backgroundColor = '#4a9bd0';
+    music = game.add.audio('sky');
 
-    this.tweens.add({
-        targets: logo,
-        y: 450,
-        duration: 2000,
-        ease: 'Power2',
-        yoyo: true,
-        loop: -1
+    music.play();
+
+
+
+    group.createMultiple({ key: 'raster', repeat: 64 });
+
+    var hsv = Phaser.Display.Color.HSVColorWheel();
+
+    var i = 0;
+
+    var _this = this;
+
+    group.children.iterate(function (child) {
+
+        child.x = 400;
+        child.y = 100;
+        child.depth = 64 - i;
+
+        child.setTint(hsv[i * 4].color);
+
+        i++;
+
+        _this.tweens.add({
+            targets: child,
+            props: {
+                y: { value: 500, duration: 1500 },
+                scaleX: { value: child.depth / 64, duration: 6000, hold: 2000, delay: 2000 }
+            },
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.easeInOut',
+            delay: 32 * i
+        });
+
     });
-
-
-}
+};
 
 function update(){
     console.log(5);
-}
+};
+
+function render(){
+    console.log(5);
+};
