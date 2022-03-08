@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "phaser3-project-template": "^1.0.9"
+  },
+  "name": "wave-shooter",
+  "description": "Using Phaser creating a platform shooter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/John4064/Wave-Shooter.git"
+  },
+  "author": "John Parkhurst",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/John4064/Wave-Shooter/issues"
+  },
+  "homepage": "https://github.com/John4064/Wave-Shooter#readme"
+}
