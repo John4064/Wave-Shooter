@@ -1,7 +1,10 @@
 import 'phaser';
 
-var hp = 100;
 
+//Globals
+var game = new Phaser.Game(config);
+var music;
+var hp = 100;
 
 class player{
     /**
@@ -30,20 +33,24 @@ var config = {
     height: 600,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update,
+        render: render
     }
 };
 
 var game = new Phaser.Game(config);
 
-function preload ()
-{
-    this.load.image('logo', './src/assets/img/logo.png');
+
+function preload () {
+    this.load.image('logo', '../src/assets/img/logo.png');
+    //this.load.audio('sky', ['../src/assets/sound/sky.wav']);
+
 }
 
-function create ()
-{
+function create () {
     var logo = this.add.image(400, 150, 'logo');
+    this.stage.backgroundColor = "#4488AA";
 
     this.tweens.add({
         targets: logo,
@@ -55,5 +62,8 @@ function create ()
     });
 
 
+}
 
+function update(){
+    console.log(5);
 }
